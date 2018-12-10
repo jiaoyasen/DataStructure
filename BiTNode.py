@@ -1,3 +1,4 @@
+import collections
 class BiTNode:
     def __init__(self):
         self.data = None
@@ -29,6 +30,24 @@ def printTreeMidOrder(root):
         printTreeMidOrder(root.rchild)
 
 
+def printTreeLayer(root):
+    if root is None:
+        return
+
+    queue = collections.deque()
+    queue.append(root)
+    while len(queue)>0:
+        p = queue.popleft()
+        print(p.data)
+        if p.lchild is not None:
+            queue.append(p.lchild)
+        if p.rchild is not None:
+            queue.append(p.rchild)
+
+
+
+
+
 if __name__ == "__main__":
     arr = [1,2,3,4,5,6,7,8,9,10]
     print("数组：")
@@ -36,9 +55,11 @@ if __name__ == "__main__":
     while i < len(arr):
         print(arr[i])
         i += 1
-    print()
+
     root = array2tree(arr,0,len(arr)-1)
     print("转换为树的中序遍历为：")
     printTreeMidOrder(root)
-    print()
+    printTreeLayer(root)
+
+
 
